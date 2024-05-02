@@ -12,25 +12,23 @@
 
         <ImageView
             android:id="@+id/image"
-            android:layout_width="50dp"
+            android:layout_width="120dp"
             android:layout_height="50dp"
-            android:layout_weight="0.2"
-            android:gravity="center|left"/>
-
+            android:scaleType="centerCrop" />
         <TextView
             android:id="@+id/nombre"
-            android:layout_width="0dp"
+            android:layout_width="150dp"
             android:layout_height="50dp"
-            android:layout_weight="0.5"
             android:text="Nombre"
-            android:gravity="center|center_horizontal"/>
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            />
         <Button
             android:id="@+id/button_ver"
-            android:layout_width="0dp"
+            android:layout_width="100dp"
             android:layout_height="50dp"
-            android:layout_weight="0.3"
-            android:text="Ver Map"
-            android:gravity="center|left"/>
+            android:text="Ver"
+            android:gravity="center"/>
 
     </LinearLayout>
 

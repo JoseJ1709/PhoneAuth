@@ -63,7 +63,19 @@ class MapsActivity : AppCompatActivity() {
         map.setMultiTouchControls(true)
         //poniendo los puntos en el mapa
         setPoints(map)
+        inicializarUbicacion()
     }
+    @SuppressLint("MissingPermission")
+    private fun inicializarUbicacion() {
+        val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
+        val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+        if (location != null) {
+            latitud = location.latitude
+            longitud = location.longitude
+            setMylocation(latitud, longitud)
+        }
+    }
+
     //Opciones de menu
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu,menu)
@@ -123,9 +135,9 @@ class MapsActivity : AppCompatActivity() {
             latitud = location.latitude
             longitud = location.longitude
             Log.i("LISTENER", "Latitud: $latitud y Longitud: $longitud")
-            setMylocation(latitud, longitud)
             startPoint.latitude = latitud
             startPoint.longitude = longitud
+            setMylocation(latitud, longitud)
             actualizarUbicacionUsuarioDatabase(latitud, longitud)
         }
     }
@@ -137,7 +149,7 @@ class MapsActivity : AppCompatActivity() {
         }
 
         val punto = GeoPoint(latitud, longitud)
-        marcador = Marker(map).apply{
+            marcador = Marker(map).apply{
             icon = cambioTamañoIcono(resources.getDrawable(R.drawable.ubicacion_json))
             position = punto
             setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
@@ -217,6 +229,10 @@ class MapsActivity : AppCompatActivity() {
         mapController.setCenter(this.startPoint)
     }
 
+    override fun onStart() {
+        super.onStart()
+
+    }
     override fun onPause() {
         super.onPause()
         val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager

@@ -34,7 +34,6 @@ class UsuariosActivity : AppCompatActivity() {
         auth = Firebase.auth
         users = mutableListOf()
         UploadJSONUsers()
-
     }
     private fun UploadJSONUsers() {
         val database = Firebase.database
@@ -90,9 +89,10 @@ class UsuariosActivity : AppCompatActivity() {
 
     private fun updateListView() {
         val list = findViewById<ListView>(R.id.lita_usuarios)
-        val currentUserName = UserName()
-        Toast.makeText(this@UsuariosActivity, "Usuario logeado $currentUserName", Toast.LENGTH_SHORT).show()
-        val filteredUsers = users.filter { it.disponible == true && it.nombre != currentUserName }.toMutableList()
+        val filteredUsers = users.filter { it.disponible }
+            .distinctBy { it.nombre }
+            .toMutableList()
+
         if(filteredUsers.isEmpty()){
             Toast.makeText(this@UsuariosActivity, "No hay usuarios disponibles", Toast.LENGTH_SHORT).show()
             return
@@ -100,16 +100,7 @@ class UsuariosActivity : AppCompatActivity() {
         adapterU = AdapterUser(this@UsuariosActivity, filteredUsers)
         list.adapter = adapterU
     }
-    private fun UserName(): String {
-        val database = Firebase.database
-        val uid = auth.currentUser?.uid
-        if (uid != null){
-            val usuarioActual = database.getReference(PATH_USERS + uid)
-            var nombre = usuarioActual.child("nombre").toString()
-            return nombre
-        }
-        return ""
-    }
+
     override fun onStop() {
         super.onStop()
         val database = Firebase.database

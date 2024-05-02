@@ -34,7 +34,7 @@ class ViewLocationActivity : AppCompatActivity() {
     private var longitud: Double = 0.0
     private var latitud2: Double = 0.0
     private var longitud2: Double = 0.0
-    private val startPoint = org.osmdroid.util.GeoPoint(4.628593, -74.065041)
+    private val startPoint = org.osmdroid.util.GeoPoint(0.0, 0.0)
     private lateinit var auth: FirebaseAuth
     val PATH_USERS = "users/"
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +51,7 @@ class ViewLocationActivity : AppCompatActivity() {
         map.setMultiTouchControls(true)
         latitud2 = latitud!!.toDouble()
         longitud2 = longitud!!.toDouble()
+        inicializarUbicacion()
         Toast.makeText(this, "Latitud: $latitud2 y Longitud: $longitud2", Toast.LENGTH_SHORT).show()
     }
     private fun setRoute(latitud2: Double, longitud2: Double) {
@@ -80,6 +81,15 @@ class ViewLocationActivity : AppCompatActivity() {
         map.overlays.add(line)
 
         map.invalidate() // Refresh the map
+    }
+    @SuppressLint("MissingPermission")
+    private fun inicializarUbicacion() {
+        val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
+        val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+        if (location != null) {
+            latitud = location.latitude
+            longitud = location.longitude
+        }
     }
 
     private val locationListener: LocationListener = object : LocationListener {
