@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">PhoneAuth</string>
+    <string name="temp_images_dir">temp_images_dir</string>
+    <string name="temp_image">temp_image</string>
+    <string name="authorities">com.example.phoneapp.fileprovider</string>
 </resources>

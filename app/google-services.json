@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "661517184447",
+    "firebase_url": "https://phoneauth-eda0d-default-rtdb.firebaseio.com",
+    "project_id": "phoneauth-eda0d",
+    "storage_bucket": "phoneauth-eda0d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:661517184447:android:db953b14eb38a42c88c50a",
+        "android_client_info": {
+          "package_name": "com.example.phoneauth"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBB7k1f2gNqBvdZjPw93ZfUYwOpMpEeJec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
