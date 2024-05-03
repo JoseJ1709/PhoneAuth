@@ -8,5 +8,6 @@ class Usuario {
     var identificacion = ""
     var latitud = ""
     var longitud = ""
+    var key = ""
     var disponible = false
 }
