@@ -17,6 +17,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.bumptech.glide.Glide
+import com.google.firebase.storage.FirebaseStorage
 
 class UsuariosActivity : AppCompatActivity() {
 
@@ -70,12 +72,14 @@ class UsuariosActivity : AppCompatActivity() {
         val longitud = myUser?.longitud
         val latitud = myUser?.latitud
         val disp = myUser?.disponible
+        val llave = myUser?.key
         if (name != null && longitud != null && latitud != null && disp != null) {
             var user = Usuario()
             user.nombre = name
             user.longitud = longitud
             user.latitud = latitud
             user.disponible = disp
+            user.key = llave!!
             if (disp) {
                 users.add(user)
                 Toast.makeText(this@UsuariosActivity, "$name se ha conectado", Toast.LENGTH_SHORT).show()

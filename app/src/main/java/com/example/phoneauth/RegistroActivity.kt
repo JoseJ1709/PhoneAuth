@@ -251,6 +251,7 @@ class RegistroActivity : AppCompatActivity() {
             user.latitud = latitud
             user.longitud = longitud
             user.disponible = false
+            user.key = userId
             val userRef = database.getReference(PATH_USERS + userId)
             userRef.setValue(user)
         }
