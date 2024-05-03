@@ -192,6 +192,7 @@ class RegistroActivity : AppCompatActivity() {
             val latitud = latitud.text.toString()
             val longitud = longitud.text.toString()
             val uriImagen = obtenerUriImagen()
+
             if (nombre.isEmpty() || apellido.isEmpty() || email.isEmpty() ||  identificacion.isEmpty() || latitud.isEmpty() || longitud.isEmpty() || uriImagen == null){
                 Toast.makeText(this, "No se ha llenado algun campo del Registro", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -251,6 +252,7 @@ class RegistroActivity : AppCompatActivity() {
             user.latitud = latitud
             user.longitud = longitud
             user.disponible = false
+            user.key = userId
             val userRef = database.getReference(PATH_USERS + userId)
             userRef.setValue(user)
         }

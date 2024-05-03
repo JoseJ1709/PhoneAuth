@@ -3,6 +3,7 @@ package com.example.phoneauth
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
+import com.bumptech.glide.Glide
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
+import com.google.firebase.storage.FirebaseStorage
 
 class AdapterUser(private val context: Context?, private var facts: MutableList<Usuario>): BaseAdapter(){
     var onDataChangeListener: OnDataChangeListener? = null
@@ -32,7 +37,17 @@ class AdapterUser(private val context: Context?, private var facts: MutableList<
         val nombre = view.findViewById<TextView>(R.id.nombre)
         val ver = view.findViewById<Button>(R.id.button_ver)
         val datoObject = getItem(position)
+        val storage = FirebaseStorage.getInstance()
+        val storageReference = storage.getReference().child("images/${datoObject.key}/${datoObject.key}")
+        Log.d("Firebase", "URL de la imagen: images/${datoObject.key}/${datoObject.key}")
+        storageReference.downloadUrl.addOnSuccessListener { imageUrl ->
 
+            Glide.with(context!!)
+                .load(imageUrl)
+                .into(imagen)
+        }.addOnFailureListener { exception ->
+            Log.e("Firebase", "Error al descargar la imagen", exception)
+        }
         nombre?.text = datoObject.nombre
         ver.setOnClickListener {
             val position = Bundle()
@@ -42,6 +57,7 @@ class AdapterUser(private val context: Context?, private var facts: MutableList<
             intent.putExtras(position)
             context?.startActivity(intent)
         }
+
 
         return view
     }
